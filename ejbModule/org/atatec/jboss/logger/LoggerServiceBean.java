@@ -158,7 +158,7 @@ public class LoggerServiceBean implements LoggerService {
    * @param message
    *          the message to log
    * @param exceptionClass
-   *          the exception cause
+   *          the exception to log
    */
   private void log(String category, LogLevel level, String message,
       String exceptionClass) throws Exception {

@@ -24,6 +24,12 @@ package org.atatec.jboss.logger;
 
 import org.jboss.logging.Logger;
 
+/**
+ * Enumeration of the possible log levels.
+ *
+ * @author Marcelo Guimaraes <ataxexe@gmail.com>
+ *
+ */
 public enum LogLevel {
 
   TRACE {
@@ -93,8 +99,26 @@ public enum LogLevel {
     }
   };
 
+  /**
+   * Logs the given message using the log level.
+   *
+   * @param logger
+   *          logger object to log the message
+   * @param message
+   *          the message to log
+   */
   public abstract void log(Logger logger, Object message);
 
+  /**
+   * Logs the given message using the log level.
+   *
+   * @param logger
+   *          logger object to log the message
+   * @param message
+   *          the message to log
+   * @param cause
+   *          the exception to log
+   */
   public abstract void log(Logger logger, Object message, Throwable cause);
 
 }

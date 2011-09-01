@@ -67,7 +67,7 @@ public interface LoggerService {
 
   /**
    * Logs the given message using the FATAL level, the given category and the
-   * given exception class as the cause. If the exception does not exist in
+   * given exception. If the exception does not exist in
    * classpath, it will be created at runtime (if possible).
    *
    * @param category
@@ -75,7 +75,7 @@ public interface LoggerService {
    * @param message
    *          the message to log
    * @param exceptionClass
-   *          the cause exception
+   *          the exception to log
    */
   void fatal(String category, String message, String exceptionClass)
       throws Exception;
@@ -100,7 +100,7 @@ public interface LoggerService {
 
   /**
    * Logs the given message using the ERROR level, the given category and the
-   * given exception class as the cause. If the exception does not exist in
+   * given exception. If the exception does not exist in
    * classpath, it will be created at runtime (if possible).
    *
    * @param category
@@ -108,7 +108,7 @@ public interface LoggerService {
    * @param message
    *          the message to log
    * @param exceptionClass
-   *          the cause exception
+   *          the exception to log
    */
   void error(String category, String message, String exceptionClass)
       throws Exception;
@@ -133,7 +133,7 @@ public interface LoggerService {
 
   /**
    * Logs the given message using the WARN level, the given category and the
-   * given exception class as the cause. If the exception does not exist in
+   * given exception. If the exception does not exist in
    * classpath, it will be created at runtime (if possible).
    *
    * @param category
@@ -141,7 +141,7 @@ public interface LoggerService {
    * @param message
    *          the message to log
    * @param exceptionClass
-   *          the cause exception
+   *          the exception to log
    */
   void warn(String category, String message, String exceptionClass)
       throws Exception;
@@ -166,7 +166,7 @@ public interface LoggerService {
 
   /**
    * Logs the given message using the INFO level, the given category and the
-   * given exception class as the cause. If the exception does not exist in
+   * given exception. If the exception does not exist in
    * classpath, it will be created at runtime (if possible).
    *
    * @param category
@@ -174,7 +174,7 @@ public interface LoggerService {
    * @param message
    *          the message to log
    * @param exceptionClass
-   *          the cause exception
+   *          the exception to log
    */
   void info(String category, String message, String exceptionClass)
       throws Exception;
@@ -199,7 +199,7 @@ public interface LoggerService {
 
   /**
    * Logs the given message using the DEBUG level, the given category and the
-   * given exception class as the cause. If the exception does not exist in
+   * given exception. If the exception does not exist in
    * classpath, it will be created at runtime (if possible).
    *
    * @param category
@@ -207,7 +207,7 @@ public interface LoggerService {
    * @param message
    *          the message to log
    * @param exceptionClass
-   *          the cause exception
+   *          the exception to log
    */
   void debug(String category, String message, String exceptionClass)
       throws Exception;
@@ -232,7 +232,7 @@ public interface LoggerService {
 
   /**
    * Logs the given message using the TRACE level, the given category and the
-   * given exception class as the cause. If the exception does not exist in
+   * given exception. If the exception does not exist in
    * classpath, it will be created at runtime (if possible).
    *
    * @param category
@@ -240,7 +240,7 @@ public interface LoggerService {
    * @param message
    *          the message to log
    * @param exceptionClass
-   *          the cause exception
+   *          the exception to log
    */
   void trace(String category, String message, String exceptionClass)
       throws Exception;
