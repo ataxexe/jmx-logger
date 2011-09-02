@@ -26,6 +26,7 @@ import java.lang.reflect.Constructor;
 
 import javassist.ClassPool;
 import javassist.CtClass;
+import javassist.CtConstructor;
 
 import org.jboss.ejb3.annotation.Service;
 import org.jboss.logging.Logger;
@@ -167,23 +168,33 @@ public class LoggerServiceBean implements LoggerService {
     try {
       Class<?> c = Class.forName(exceptionClass);
       // tries to create the exception using the message in constructor
-      try {
-        Constructor<?> constructor = c.getDeclaredConstructor(String.class);
-        exception = (Throwable) constructor.newInstance(message);
-      } catch (Exception e) {
-        // use the default constructor
-        exception = (Throwable) c.newInstance();
-      }
+      exception = createException(message, c);
     } catch (ClassNotFoundException e) {
       // tries to create the exception at runtime
       ClassPool classPool = ClassPool.getDefault();
       CtClass superClass = classPool.getCtClass(Exception.class
           .getCanonicalName());
       CtClass dynaClass = classPool.makeClass(exceptionClass, superClass);
-      exception = (Exception) dynaClass.toClass().newInstance();
+      for (CtConstructor c : superClass.getConstructors()) {
+        dynaClass.addConstructor(new CtConstructor(c, dynaClass, null));
+      }
+      exception = createException(message, dynaClass.toClass());
       dynaClass.detach();
     }
     level.log(logger, message, exception);
+  }
+
+  private Throwable createException(String message, Class<?> c)
+      throws InstantiationException, IllegalAccessException {
+    Throwable exception;
+    try {
+      Constructor<?> constructor = c.getDeclaredConstructor(String.class);
+      exception = (Throwable) constructor.newInstance(message);
+    } catch (Exception e) {
+      // use the default constructor
+      exception = (Throwable) c.newInstance();
+    }
+    return exception;
   }
 
 }
