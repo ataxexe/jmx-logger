@@ -20,7 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.atatec.jboss.logger;
+package org.atatec.jboss.jmx.logger;
 
 import org.jboss.logging.Logger;
 
