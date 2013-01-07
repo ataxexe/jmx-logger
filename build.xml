@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="jmx-logger" default="all">
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="128m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*.lib/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/.bundle/**"/>
+    <exclude name="**/*.rbc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.ear"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.swc"/>
+    <include name="*.ane"/>
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <include name="**/?*.properties"/>
+    <include name="**/?*.xml"/>
+    <include name="**/?*.gif"/>
+    <include name="**/?*.png"/>
+    <include name="**/?*.jpeg"/>
+    <include name="**/?*.jpg"/>
+    <include name="**/?*.html"/>
+    <include name="**/?*.dtd"/>
+    <include name="**/?*.tld"/>
+    <include name="**/?*.ftl"/>
+    <include name="**/trace.info"/>
+  </patternset>
+  
+  
+  <!-- Global Libraries -->
+  
+  
+  <!-- Application Server Libraries -->
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module jmx-logger -->
+  
+  <dirname property="module.jmx-logger.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.jmx-logger" value="${compiler.args}"/>
+  
+  <property name="jmx-logger.output.dir" value="${module.jmx-logger.basedir}/out/production/jmx-logger"/>
+  <property name="jmx-logger.testoutput.dir" value="${module.jmx-logger.basedir}/out/test/jmx-logger"/>
+  
+  <path id="jmx-logger.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="jmx-logger.module.production.classpath">
+    <fileset dir="${basedir}/lib">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  <path id="jmx-logger.runtime.production.module.classpath">
+    <pathelement location="${jmx-logger.output.dir}"/>
+  </path>
+  
+  <path id="jmx-logger.module.classpath">
+    <pathelement location="${jmx-logger.output.dir}"/>
+    <fileset dir="${basedir}/lib">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  <path id="jmx-logger.runtime.module.classpath">
+    <pathelement location="${jmx-logger.testoutput.dir}"/>
+    <pathelement location="${jmx-logger.output.dir}"/>
+    <fileset dir="${basedir}/lib">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.jmx-logger">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.jmx-logger">
+    <patternset refid="excluded.from.module.jmx-logger"/>
+  </patternset>
+  
+  <path id="jmx-logger.module.sourcepath">
+    <dirset dir="${module.jmx-logger.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.jmx-logger" depends="compile.module.jmx-logger.production,compile.module.jmx-logger.tests" description="Compile module jmx-logger"/>
+  
+  <target name="compile.module.jmx-logger.production" description="Compile module jmx-logger; production classes">
+    <mkdir dir="${jmx-logger.output.dir}"/>
+    <javac destdir="${jmx-logger.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.jmx-logger}"/>
+      <bootclasspath refid="jmx-logger.module.bootclasspath"/>
+      <classpath refid="jmx-logger.module.production.classpath"/>
+      <src refid="jmx-logger.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.jmx-logger"/>
+    </javac>
+    
+    <copy todir="${jmx-logger.output.dir}">
+      <fileset dir="${module.jmx-logger.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.jmx-logger.tests" depends="compile.module.jmx-logger.production" description="compile module jmx-logger; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.jmx-logger" description="cleanup module">
+    <delete dir="${jmx-logger.output.dir}"/>
+    <delete dir="${jmx-logger.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.jmx-logger" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.jmx-logger" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.jmx-logger:jar" value="${basedir}/out/artifacts"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.jmx-logger.jar" value="${artifacts.temp.dir}/jmx-logger.jar"/>
+  </target>
+  
+  <target name="artifact.jmx-logger:jar" depends="init.artifacts, compile.module.jmx-logger" description="Build &#39;jmx-logger:jar&#39; artifact">
+    <property name="artifact.temp.output.jmx-logger:jar" value="${artifacts.temp.dir}/jmx_logger_jar"/>
+    <mkdir dir="${artifact.temp.output.jmx-logger:jar}"/>
+    <jar destfile="${temp.jar.path.jmx-logger.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${jmx-logger.output.dir}"/>
+    </jar>
+    <copy file="${temp.jar.path.jmx-logger.jar}" tofile="${artifact.temp.output.jmx-logger:jar}/jmx-logger.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.jmx-logger:jar" description="Build all artifacts">
+    <mkdir dir="${artifact.output.jmx-logger:jar}"/>
+    <copy todir="${artifact.output.jmx-logger:jar}">
+      <fileset dir="${artifact.temp.output.jmx-logger:jar}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>
